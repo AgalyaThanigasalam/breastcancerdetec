@@ -1,0 +1,240 @@
+import { useState } from 'react'
+import { Button } from "/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "/components/ui/card"
+import { Input } from "/components/ui/input"
+import { Label } from "/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "/components/ui/textarea"
+
+export default function BreastCancerDetector() {
+  const [formData, setFormData] = useState({
+    age: '',
+    familyHistory: '',
+    personalHistoryLumps: '',
+    breastPain: '',
+    nippleDischarge: '',
+    changeInBreastSize: '',
+    skinChanges: '',
+    menopauseStatus: '',
+    hormonalTherapy: '',
+    bmi: '',
+    smokingStatus: '',
+    alcoholConsumption: '',
+    breastCancerDiagnosis: '',
+  })
+
+  const [result, setResult] = useState<string | null>(null)
+  const [feedback, setFeedback] = useState('')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Simulate a prediction result
+    const isCancerous = Math.random() > 0.5 ? 'Cancerous' : 'Non-Cancerous'
+    setResult(isCancerous)
+  }
+
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    alert(`Feedback submitted: ${feedback}`)
+    setFeedback('')
+  }
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+      <Card className="w-full max-w-3xl">
+        <CardHeader>
+          <CardTitle>Breast Cancer Detection</CardTitle>
+          <CardDescription>Enter patient data to get a prediction.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="age">Age</Label>
+              <Input id="age" name="age" type="number" value={formData.age} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label htmlFor="familyHistory">Family History</Label>
+              <Select id="familyHistory" value={formData.familyHistory} onValueChange={(value) => handleSelectChange('familyHistory', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="personalHistoryLumps">Personal History of Lumps</Label>
+              <Select id="personalHistoryLumps" value={formData.personalHistoryLumps} onValueChange={(value) => handleSelectChange('personalHistoryLumps', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="breastPain">Breast Pain</Label>
+              <Select id="breastPain" value={formData.breastPain} onValueChange={(value) => handleSelectChange('breastPain', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="nippleDischarge">Nipple Discharge</Label>
+              <Select id="nippleDischarge" value={formData.nippleDischarge} onValueChange={(value) => handleSelectChange('nippleDischarge', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="changeInBreastSize">Change in Breast Size</Label>
+              <Select id="changeInBreastSize" value={formData.changeInBreastSize} onValueChange={(value) => handleSelectChange('changeInBreastSize', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="skinChanges">Skin Changes</Label>
+              <Select id="skinChanges" value={formData.skinChanges} onValueChange={(value) => handleSelectChange('skinChanges', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="menopauseStatus">Menopause Status</Label>
+              <Select id="menopauseStatus" value={formData.menopauseStatus} onValueChange={(value) => handleSelectChange('menopauseStatus', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="premenopausal">Premenopausal</SelectItem>
+                  <SelectItem value="postmenopausal">Postmenopausal</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="hormonalTherapy">Hormonal Therapy</Label>
+              <Select id="hormonalTherapy" value={formData.hormonalTherapy} onValueChange={(value) => handleSelectChange('hormonalTherapy', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="bmi">BMI</Label>
+              <Input id="bmi" name="bmi" type="number" value={formData.bmi} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label htmlFor="smokingStatus">Smoking Status</Label>
+              <Select id="smokingStatus" value={formData.smokingStatus} onValueChange={(value) => handleSelectChange('smokingStatus', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="alcoholConsumption">Alcohol Consumption</Label>
+              <Select id="alcoholConsumption" value={formData.alcoholConsumption} onValueChange={(value) => handleSelectChange('alcoholConsumption', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="breastCancerDiagnosis">Breast Cancer Diagnosis</Label>
+              <Select id="breastCancerDiagnosis" value={formData.breastCancerDiagnosis} onValueChange={(value) => handleSelectChange('breastCancerDiagnosis', value)} required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button type="submit">Predict</Button>
+          </form>
+        </CardContent>
+        {result && (
+          <CardFooter>
+            <div className="flex flex-col items-center">
+              <h2 className="text-2xl font-bold mb-2">Prediction Result</h2>
+              <p className={`text-lg ${result === 'Cancerous' ? 'text-red-500' : 'text-green-500'}`}>
+                The tumor is predicted to be {result}.
+              </p>
+            </div>
+          </CardFooter>
+        )}
+      </Card>
+
+      {result && (
+        <Card className="w-full max-w-3xl mt-4">
+          <CardHeader>
+            <CardTitle>Feedback</CardTitle>
+            <CardDescription>Provide feedback on the prediction.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleFeedbackSubmit} className="space-y-4">
+              <div>
+                <Label htmlFor="feedback">Your Feedback</Label>
+                <Textarea id="feedback" name="feedback" value={feedback} onChange={(e) => setFeedback(e.target.value)} required />
+              </div>
+              <Button type="submit">Submit Feedback</Button>
+            </form>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  )
+}
